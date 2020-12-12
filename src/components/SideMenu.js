@@ -32,6 +32,8 @@ import SvgIcon from './SvgIcon';
 const SideMenu = (props) => {
 	const classes = useStyles();
 	const history = useHistory();
+
+	const [showMenu, setShowMenu] = React.useState(true);
 	const [open, setOpen] = React.useState(false);
 	const [hover, setHover] = React.useState('');
 
@@ -56,7 +58,7 @@ const SideMenu = (props) => {
 			label: 'Dashboard',
 			icon: <DashboardIcon />,
 			notifications: 3,
-			notificationColor:'#DB1974',
+			notificationColor: '#DB1974',
 			link: '',
 		},
 		{
@@ -85,7 +87,7 @@ const SideMenu = (props) => {
 			label: 'Notice Board',
 			icon: <NoticeBoardIcon />,
 			notifications: 3,
-			notificationColor:'#598500',
+			notificationColor: '#598500',
 			link: 'notice-board',
 		},
 		{
@@ -107,7 +109,7 @@ const SideMenu = (props) => {
 			label: 'Attendence',
 			icon: <AttendanceIcon />,
 			notifications: 21,
-			notificationColor:'#7467F0',
+			notificationColor: '#7467F0',
 			link: 'attendance',
 		},
 		{
@@ -115,14 +117,14 @@ const SideMenu = (props) => {
 			label: 'Assessments',
 			icon: <AssesmentsIcon />,
 			notifications: 0,
-			link:'assessments'
+			link: 'assessments',
 		},
 		{
 			id: 10,
 			label: 'Assignments',
 			icon: <AssignmentsIcon />,
 			notifications: 2,
-			notificationColor:'#DB1974',
+			notificationColor: '#DB1974',
 			link: 'assignment',
 		},
 		{
@@ -130,7 +132,7 @@ const SideMenu = (props) => {
 			label: 'Results',
 			icon: <ResultsIcon />,
 			notifications: 0,
-			link:'results',
+			link: 'results',
 			expandable: true,
 		},
 		{
@@ -172,49 +174,61 @@ const SideMenu = (props) => {
 	];
 	return (
 		<List component='nav' className={classes.sideMenu} disablePadding>
-			<ListItem className={[classes.menuItem, classes.firstMenuItem].join(' ')}>
+			<ListItem
+				onClick={() => {
+					setShowMenu(!showMenu);
+				}}
+				button
+				className={[classes.menuItem, classes.firstMenuItem].join(' ')}>
 				<div>
 					<img className={classes.ProfileImg} src={Profile} alt='user' />
 					<span>John Doe</span>
 				</div>
-				{open ? <SvgIcon icon={ChevronDown} iconStyle={{ width: '15px', height: '15px', transform: 'rotate(180deg)' }} /> : <SvgIcon icon={ChevronDown} iconStyle={{ width: '15px', height: '15px' }} />}
+				{showMenu ? <SvgIcon icon={ChevronDown} iconStyle={{ width: '15px', height: '15px' }} /> : <SvgIcon icon={ChevronRight} iconStyle={{ width: '15px', height: '15px' }} />}
 			</ListItem>
-			{menutItems.map((menu, id) =>
-				!menu.expandable ? (
-					<ListItem
-						onClick={() => {
-							handleRoute(menu.link);
-						}}
-						key={menu.label}
-						onMouseLeave={handleMouseLeave}
-						onMouseEnter={() => handleMouseEnter(menu.link)}
-						button
-						className={[classes.menuItem, history.location.pathname === `/${menu.link}` ? classes.MenuActive : ''].join(' ')}>
-						<ListItemIcon className={classes.menuItemIcon}>{React.cloneElement(menu.icon, { color: hover === `/${menu.link}` || history.location.pathname === `/${menu.link}` ? '#00C3B3' : '#fff' })}</ListItemIcon>
-						<ListItemText className={classes.menuItemText} primary={menu.label} />
-						{menu.notifications > 0 ? <span style={{background:menu.notificationColor}} className={classes.NItem}>{menu.notifications}</span> : ''}
-					</ListItem>
-				) : (
-					<>
-						<ListItem onMouseLeave={handleMouseLeave} onMouseEnter={() => handleMouseEnter(menu.link)} button onClick={handleClick} className={classes.menuItem}>
-							<ListItemIcon className={classes.menuItemIcon}>{React.cloneElement(menu.icon, { color: hover === `/${menu.link}` ? '#00C3B3' : '#fff' })}</ListItemIcon>
+			{showMenu &&
+				menutItems.map((menu, id) =>
+					!menu.expandable ? (
+						<ListItem
+							onClick={() => {
+								handleRoute(menu.link);
+							}}
+							key={menu.label}
+							onMouseLeave={handleMouseLeave}
+							onMouseEnter={() => handleMouseEnter(menu.link)}
+							button
+							className={[classes.menuItem, history.location.pathname === `/${menu.link}` ? classes.MenuActive : ''].join(' ')}>
+							<ListItemIcon className={classes.menuItemIcon}>{React.cloneElement(menu.icon, { color: hover === `/${menu.link}` || history.location.pathname === `/${menu.link}` ? '#00C3B3' : '#fff' })}</ListItemIcon>
 							<ListItemText className={classes.menuItemText} primary={menu.label} />
-							{open ? <SvgIcon icon={ChevronDown} iconStyle={{ width: '15px', height: '15px' }} /> : <SvgIcon icon={ChevronRight} iconStyle={{ width: '15px', height: '15px' }} />}
+							{menu.notifications > 0 ? (
+								<span style={{ background: menu.notificationColor }} className={classes.NItem}>
+									{menu.notifications}
+								</span>
+							) : (
+								''
+							)}
 						</ListItem>
-						<Collapse in={open} timeout='auto' unmountOnExit>
-							<Divider />
-							<List component='div' disablePadding>
-								<ListItem button className={classes.menuItem}>
-									<ListItemText inset primary='Nested Page 1' />
-								</ListItem>
-								<ListItem button className={classes.menuItem}>
-									<ListItemText inset primary='Nested Page 2' />
-								</ListItem>
-							</List>
-						</Collapse>
-					</>
-				),
-			)}
+					) : (
+						<>
+							<ListItem key={menu.id} onMouseLeave={handleMouseLeave} onMouseEnter={() => handleMouseEnter(menu.link)} button onClick={handleClick} className={classes.menuItem}>
+								<ListItemIcon className={classes.menuItemIcon}>{React.cloneElement(menu.icon, { color: hover === `/${menu.link}` ? '#00C3B3' : '#fff' })}</ListItemIcon>
+								<ListItemText className={classes.menuItemText} primary={menu.label} />
+								{open ? <SvgIcon icon={ChevronDown} iconStyle={{ width: '15px', height: '15px' }} /> : <SvgIcon icon={ChevronRight} iconStyle={{ width: '15px', height: '15px' }} />}
+							</ListItem>
+							<Collapse in={open} timeout='auto' unmountOnExit>
+								<Divider />
+								<List component='div' disablePadding>
+									<ListItem button className={classes.menuItem}>
+										<ListItemText inset primary='Nested Page 1' />
+									</ListItem>
+									<ListItem button className={classes.menuItem}>
+										<ListItemText inset primary='Nested Page 2' />
+									</ListItem>
+								</List>
+							</Collapse>
+						</>
+					),
+				)}
 		</List>
 	);
 };
@@ -245,6 +259,7 @@ const useStyles = makeStyles((theme) =>
 		},
 		sideMenu: {
 			width: '100%',
+			height: '100rem',
 		},
 		menuItemText: {
 			'& span': {
@@ -276,15 +291,15 @@ const useStyles = makeStyles((theme) =>
 			minWidth: '35px',
 			color: '#97c05c',
 		},
-		NItem:{
-			width:'25px',
-			height:'25px',
+		NItem: {
+			width: '25px',
+			height: '25px',
 			font: 'normal normal bold 14px/28px Montserrat',
-			borderRadius:'50%',
-			display:'flex',
-			justifyContent:'center',
-			alignItems:'center'
-		}
+			borderRadius: '50%',
+			display: 'flex',
+			justifyContent: 'center',
+			alignItems: 'center',
+		},
 	}),
 );
 
