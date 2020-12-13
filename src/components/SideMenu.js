@@ -193,7 +193,7 @@ const SideMenu = (props) => {
 							onClick={() => {
 								handleRoute(menu.link);
 							}}
-							key={menu.label}
+							key={id}
 							onMouseLeave={handleMouseLeave}
 							onMouseEnter={() => handleMouseEnter(menu.link)}
 							button
@@ -210,7 +210,7 @@ const SideMenu = (props) => {
 						</ListItem>
 					) : (
 						<>
-							<ListItem key={menu.id} onMouseLeave={handleMouseLeave} onMouseEnter={() => handleMouseEnter(menu.link)} button onClick={handleClick} className={classes.menuItem}>
+							<ListItem key={id} onMouseLeave={handleMouseLeave} onMouseEnter={() => handleMouseEnter(menu.link)} button onClick={handleClick} className={classes.menuItem}>
 								<ListItemIcon className={classes.menuItemIcon}>{React.cloneElement(menu.icon, { color: hover === `/${menu.link}` ? '#00C3B3' : '#fff' })}</ListItemIcon>
 								<ListItemText className={classes.menuItemText} primary={menu.label} />
 								{open ? <SvgIcon icon={ChevronDown} iconStyle={{ width: '15px', height: '15px' }} /> : <SvgIcon icon={ChevronRight} iconStyle={{ width: '15px', height: '15px' }} />}

@@ -36,7 +36,6 @@
 .Items2 {
     grid-column: 2;
     grid-row: 1 / span 2;
-    height:480px
 }
 
 .Items1 .paper, .Items2 .paper, .Items3 .paper{
@@ -53,6 +52,16 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
+}
+.Cardheader_2{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem;
+    border-bottom: 1px solid #ccc;
+}
+.CardChart{
+    padding: 1rem;
 }
 .CardTitle{
     font: normal normal normal 20px/24px Montserrat;
@@ -85,4 +94,127 @@
     display: inline-block;
     margin: .5rem 0;
     border-radius: 3px;
+}
+
+.Card{
+    padding: 1rem;
+}
+.AlertCard{
+    position: relative;
+    cursor: pointer;
+}
+.AlertSubject{
+    font: normal normal bold 20px/40px Montserrat !important;
+    margin:.5rem 0 !important
+}
+.AlertDate{
+    font: normal normal normal 18px/19px Montserrat;
+    color:#A1A1A1;
+    margin:1rem
+}
+
+.AlertGreeting{
+    font: normal normal normal 20px/19px Montserrat !important;
+    color: #707071 !important;
+    margin:.5rem 0 !important
+}
+.AlertBody{
+    font: normal normal normal 20px/40px Montserrat !important;
+    color: #707071 !important;
+    line-height: 1.4rem !important;
+    width:90%
+}
+
+.ActionIcons{
+    display: none;
+    position: absolute;
+    right: 1rem;
+    bottom: 0;
+    top: 5rem;
+    left: 0;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 5%;
+    margin-left: auto;
+}
+.Avatar{
+    width: 50px;
+    height: 50px;
+    border-radius: 50px;
+}
+.AlertCard:hover  .ActionIcons{
+    display: flex;
+}
+.ActionIcons button{
+    margin: .5rem 0;
+}
+.BTN{
+    width: 245px;
+    font: normal normal normal 22px/19px Montserrat !important;
+    color: #fff !important;
+    letter-spacing: 0px !important;
+    padding:.7rem !important
+}
+.CustomBtnTeacher{
+    background: #A1A1A1 !important;
+}
+.CustomBtnSchool{
+    background: #707071 !important;
+    margin: 0 1rem !important;
+}
+
+.ChartLabels{
+    padding: 1rem;
+    display: flex;
+    justify-content: flex-start;
+}
+.Label{
+    padding: .4rem .6rem;
+    width: 25%;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+}
+.Label >  span:first-child{
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    top: 0;
+    width: 5px;
+    border-radius: 5px;
+}
+
+.Label > span:nth-child(2){
+   font: normal normal medium 21px/20px Montserrat;
+}
+.Label > span:nth-child(3){
+    font: normal normal 600 19px/20px Montserrat;
+ }
+ .CustomToolBar{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 1rem ;
+ }
+ .Prev{
+     display: inherit;
+     margin: 0 1rem;
+ }
+ .Next{
+    display: inherit;
+    margin: 0 1rem;
+}
+.Calendar{
+    padding: 2rem;
+    padding-top: 1rem;
+}
+.EventDate{
+    display: inline-flex;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    justify-content: center;
+    align-items: center;
+
 }
